@@ -1,6 +1,6 @@
-FROM docker pull microsoft/dotnet:sdk
+FROM microsoft/dotnet:sdk
 
-VOLUME "/app"
+VOLUME ["/app"]
 
 WORKDIR /app
 
