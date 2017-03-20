@@ -62,11 +62,22 @@ RUN mkdir warmup \
     && rm -rf warmup \
     && rm -rf /tmp/NuGetScratch
 
-ENV REFRESHED_AT 2017-03-17-6
+ENV REFRESHED_AT 2017-03-20-15
+
+ENV DOCKER_MIRROR_URL http://hub-mirror.c.163.com
+
 RUN echo "#! /bin/bash" >> /usr/local/bin/h-jenkins.sh && \
-	echo "service docker start" >> /usr/local/bin/h-jenkins.sh && \
-	echo "/usr/local/bin/jenkins.sh" >> /usr/local/bin/h-jenkins.sh
+	echo "mkdir -p /etc/docker" >> /usr/local/bin/h-jenkins.sh && \
+	echo "echo \"{\" >> /etc/docker/daemon.json" >> /usr/local/bin/h-jenkins.sh && \
+	echo "echo \"\\\"registry-mirrors\\\": [\\\"\$DOCKER_MIRROR_URL\\\"]\" >> /etc/docker/daemon.json" >> /usr/local/bin/h-jenkins.sh && \
+	echo "echo \"}\" >> /etc/docker/daemon.json" >> /usr/local/bin/h-jenkins.sh && \
+	echo "cat /etc/docker/daemon.json" >> /usr/local/bin/h-jenkins.sh && \
+	echo "service docker start" >> /usr/local/bin/h-jenkins.sh  && \
 
-#USER ${user}
+	#echo "/usr/local/bin/jenkins.sh" >> /usr/local/bin/h-jenkins.sh 
+	echo "" >>  /usr/local/bin/h-jenkins.sh
 
-ENTRYPOINT ["/bin/bash","/usr/local/bin/h-jenkins.sh"] 
+	
+#ENTRYPOINT ["/bin/bash","/usr/local/bin/h-jenkins.sh"] 
+
+ENTRYPOINT ["/bin/bash"]
