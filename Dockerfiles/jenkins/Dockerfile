@@ -62,7 +62,7 @@ RUN mkdir warmup \
     && rm -rf warmup \
     && rm -rf /tmp/NuGetScratch
 
-ENV REFRESHED_AT 2017-03-20-15
+ENV REFRESHED_AT 2017-03-20-16
 
 ENV DOCKER_MIRROR_URL http://hub-mirror.c.163.com
 
@@ -74,10 +74,10 @@ RUN echo "#! /bin/bash" >> /usr/local/bin/h-jenkins.sh && \
 	echo "cat /etc/docker/daemon.json" >> /usr/local/bin/h-jenkins.sh && \
 	echo "service docker start" >> /usr/local/bin/h-jenkins.sh  && \
 
-	#echo "/usr/local/bin/jenkins.sh" >> /usr/local/bin/h-jenkins.sh 
-	echo "" >>  /usr/local/bin/h-jenkins.sh
-
-	
-#ENTRYPOINT ["/bin/bash","/usr/local/bin/h-jenkins.sh"] 
+	echo "/usr/local/bin/jenkins.sh" >> /usr/local/bin/h-jenkins.sh 
+	#echo "" >>  /usr/local/bin/h-jenkins.sh
 
 ENTRYPOINT ["/bin/bash"]
+ENTRYPOINT ["/bin/bash","/usr/local/bin/h-jenkins.sh"] 
+
+
