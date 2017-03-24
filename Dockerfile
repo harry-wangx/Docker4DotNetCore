@@ -10,7 +10,7 @@ USER root
 	#echo "deb http://mirrors.aliyun.com/debian jessie-backports main non-free contrib " >>/etc/apt/sources.list && \
 	#apt-get update
 
-RUN  apt-get update \
+RUN  apt-get update && \
      apt-get install -y \
      apt-transport-https \
      ca-certificates \
